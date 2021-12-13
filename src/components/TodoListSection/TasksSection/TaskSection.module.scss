@@ -1,0 +1,12 @@
+.container {
+  padding: 20px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  .taskBody{
+    margin-left: 10px;
+    margin-right: auto;
+  }
+}

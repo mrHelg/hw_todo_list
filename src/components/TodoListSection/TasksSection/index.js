@@ -1,32 +1,39 @@
 import React from 'react';
 import useTodo from './../../hooks/useTodo';
 import CloseIcon from '@mui/icons-material/Close';
+import styles from './TaskSection.module.scss';
 
 const TasksSection = () => {
   const { tasks, deleteTask, setTaskDone } = useTodo([
     {
-      id: Date.now(),
+      id: Date.now() + 1,
       body: 'visit a doctor',
-      isDone: false,
+      isDone: true,
     },
     {
-      id: Date.now(),
+      id: Date.now() + 2,
       body: 'make the dishes',
       isDone: false,
     },
   ]);
 
-  // console.log(tasks);
+  const handleCheckbox = ({ target }) => {
+    setTaskDone(Number(target.value));
+  };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Tasks</h2>
       {tasks.map((task) => {
+        // console.log(task.id);
         return (
-          <div key={task.id}>
-            <input type="checkbox" checked={task.isDone} />
-            <p>{task.body}</p>
-            <CloseIcon />
+          <div className={styles.task} key={task.id}>
+            <input type="checkbox" value={task.id} onChange={handleCheckbox} 
+            checked={task.isDone && 'checked'}
+            
+            />
+            <p className={styles.taskBody}>{task.body}</p>
+            <CloseIcon sx={{ color: 'red' }} />
           </div>
         );
       })}

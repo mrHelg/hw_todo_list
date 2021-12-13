@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 export default function useTodo(initValue) {
   const [tasks, setTasks] = useState(initValue);
+
   return {
     tasks,
     addTask: (task) => {
@@ -12,7 +13,17 @@ export default function useTodo(initValue) {
       };
       setTasks([...tasks, newTask]);
     },
-    setTaskDone: () => {},
+
+    setTaskDone: (id) => {
+      const newTasks = tasks.map((task) => {
+        const newTask = { ...task };
+        if (newTask.id === id) {
+          newTask.isDone = !newTask.isDone;
+        }
+        return newTask;
+      });
+      setTasks(newTasks);
+    },
     deleteTask: () => {},
   };
 }
